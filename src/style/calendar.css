@@ -1,0 +1,545 @@
+body {
+    background-color: #FFFBE6; /* 전체 배경 색상 설정 */
+}
+
+/* 캘린더 컨테이너 */
+.calendar-container {
+    width: 80%; /* 캘린더 컨테이너 너비를 화면의 80%로 설정 */
+    margin: auto; /* 컨테이너를 수평 중앙에 배치 */
+    margin-top: 50px; /* 상단 여백 설정 */
+    position: relative; /* 상대 위치 설정 (자식 요소의 절대 위치를 기준으로 함) */
+}
+
+/* 전체 캘린더 */
+.calendar {
+    width: 100%; /* 캘린더의 너비를 컨테이너의 100%로 설정 */
+    background-color: #ffffff; /* 배경 색상 흰색 */
+    border-radius: 10px; /* 캘린더 모서리를 둥글게 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가로 부드러운 입체감 표현 */
+    overflow: hidden; /* 캘린더 내용이 넘칠 경우 숨기기 */
+}
+
+/* 헤더 섹션 */
+.calendar-header {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: space-between; /* 헤더 내의 요소들을 양쪽 끝으로 배치 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    padding: 10px 20px; /* 상하 패딩 10px, 좌우 패딩 20px 설정 */
+    margin-bottom: 10px; /* 하단 여백 설정 */
+
+}
+
+/* 요일 헤더 */
+.calendar .header .day {
+    height: 50px; /* 요일 셀의 높이를 늘림 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 달력 날짜 셀 */
+.calendar .body .col {
+    height: 100px; /* 날짜 셀의 높이를 늘림 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* 내용물 수직 정렬 */
+    position: relative; /* 상대 위치 지정 */
+}
+
+
+
+
+/* 년도와 월을 감싸는 컨테이너 */
+.month-year-container {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    gap: 10px; /* 년도와 월 사이의 간격 설정 */
+}
+
+/* 년도와 월 텍스트 */
+.month-year {
+    font-weight: 600; /* 폰트 두께를 굵게 설정 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+    color: #0d4225; /* 진한 초록색 */
+}
+
+/* 년도와 월 입력 필드 */
+.month-year-input {
+    width: 65px; /* 입력 필드 너비 설정 */
+    height: 30px; /* 입력 필드 높이 설정 */
+    font-size: 1em; /* 입력 필드 폰트 크기 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    border: 1px solid #ccc; /* 테두리 색상과 두께 설정 */
+    border-radius: 4px; /* 입력 필드 모서리 둥글게 설정 */
+}
+
+/* 이동 버튼 */
+.prev-button, .next-button {
+    cursor: pointer; /* 버튼 클릭 시 포인터 커서 표시 */
+    background: none; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    font-size: 1.5em; /* 폰트 크기 설정 */
+    color: #0d4225; /* 진한 초록색 */
+}
+
+/* 요일 헤더 */
+.days {
+    width: 100%; /* 요일 헤더의 너비를 캘린더의 100%로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: space-between; /* 요일 셀을 양쪽 끝으로 배치 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    font-weight: 600; /* 폰트 두께를 굵게 설정 */
+    font-size: 0.65em; /* 폰트 크기 설정 */
+    padding: 5px; /* 상하 좌우 패딩 설정 */
+    color: #FFFBE6; /* 베이지 배경색 */
+    background-color: rgb(87, 140, 111); /* 진한 초록색 */
+}
+
+/* 요일 셀 */
+.days .col {
+    width: 14%; /* 요일 셀의 너비를 전체의 14%로 설정 */
+    height: 50px; /* 요일 셀의 높이를 50px로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+}
+
+/* 본문 내의 행 */
+.body .row {
+    width: 100%; /* 행의 너비를 캘린더의 100%로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: space-between; /* 셀을 양쪽 끝으로 배치 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+}
+
+
+/* 캘린더 셀 */
+.body .col {
+    width: 14%; /* 셀의 너비를 전체의 14%로 설정 */
+    height: 80px; /* 셀의 높이를 80px로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    font-size: 0.8em; /* 폰트 크기 설정 */
+    border-radius: 3px; /* 셀의 모서리 둥글게 설정 */
+    background: #FFFBE6; /* 베이지 배경색 */
+    margin: 2px; /* 셀 사이의 아래 여백 설정 */
+}
+
+
+/* 캘린더 셀 */
+.body .col {
+    width: 14%; /* 셀의 너비를 전체의 14%로 설정 */
+    height: 80px; /* 셀의 높이를 80px로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    font-size: 0.8em; /* 폰트 크기 설정 */
+    border-radius: 3px; /* 셀의 모서리 둥글게 설정 */
+    background: #FFFBE6; /* 베이지 배경색 */
+}
+
+/* 색상 선택기 컨테이너 */
+.color-picker {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    gap: 5px; /* 색상 옵션 사이의 간격 설정 */
+    position: fixed; /* 화면 고정 위치 설정 */
+    bottom: 70px; /* 하단에서 70px 위치 */
+    left: 50%; /* 화면의 중앙에 위치 */
+    transform: translateX(-50%); /* 수평 중앙 정렬 */
+}
+
+/* 색상 옵션 */
+.color-option {
+    width: 30px; /* 색상 옵션 너비 설정 */
+    height: 30px; /* 색상 옵션 높이 설정 */
+    border-radius: 50%; /* 원형 모서리 설정 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    border: 2px solid #0d4225; /* 진한 초록색 */
+}
+
+/* 선택된 셀 스타일 */
+.cell.selected {
+    border: 1px solid #0d4225; /* 진한 초록색 */
+
+}
+
+/* 유효한 셀 클릭 시 커서 스타일 */
+.cell.valid {
+    cursor: pointer; /* 유효한 셀 클릭 시 포인터 커서 표시 */
+}
+
+/* 비활성화된 셀 스타일 */
+.cell.disabled {
+    opacity: 0.5; /* 비활성화된 셀의 투명도 설정 */
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    position: fixed; /* 화면 고정 위치 설정 */
+    bottom: 20px; /* 하단에서 20px 위치 */
+    left: 20px; /* 왼쪽에서 20px 위치 */
+    width: 50px; /* 사이드바 너비 설정 */
+    height: 50px; /* 사이드바 높이 설정 */
+    background: #ffffff; /* 베이지 배경색 */
+    border-radius: 50%; /* 원형 모서리 설정 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 사이드바에 그림자 추가 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease; /* 사이드바의 애니메이션 효과 추가 */
+    z-index: 1000; /* z-index 설정 (다른 요소들 위에 표시) */
+    overflow: hidden; /* 내용이 넘칠 경우 숨기기 */
+}
+
+/* 사이드바 열린 상태 */
+.sidebar.open {
+    width: 200px; /* 열릴 때의 너비 설정 */
+    height: 150px; /* 열릴 때의 높이 설정 */
+    border-radius: 10px; /* 열린 상태에서 모서리 둥글게 설정 */
+    transform: translateX(0) translateY(0); /* 열린 상태에서 이동 없음 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* 열린 상태에서 그림자 변경 */
+    color: #0d4225; /* 진한 초록색 */
+}
+
+/* 사이드바 닫힘 상태 */
+.sidebar.closed {
+    width: 50px; /* 닫힐 때의 너비 설정 */
+    height: 50px; /* 닫힐 때의 높이 설정 */
+    border-radius: 50%; /* 원형 모서리로 설정 */
+    transform: translateX(0) translateY(0); /* 닫힌 상태에서 위치 유지 */
+    color: #0d4225; /* 진한 초록색 */
+}
+
+/* 사이드바 열린 상태에서 내용 보이기 */
+.sidebar.open .sidebar-content {
+    opacity: 1; /* 내용의 투명도를 1로 설정하여 보이게 함 */
+    visibility: visible; /* 내용이 보이도록 설정 */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* 내용이 보이도록 설정하는 애니메이션 효과 */
+}
+
+/* 사이드바 닫힌 상태에서 내용 숨기기 */
+.sidebar.closed .sidebar-content {
+    opacity: 0; /* 내용의 투명도를 0으로 설정하여 숨김 */
+    visibility: hidden; /* 내용이 숨겨지도록 설정 */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* 내용이 숨겨지도록 설정하는 애니메이션 효과 */
+}
+
+/* 사이드바 아이콘 */
+.sidebar-icon {
+    font-size: 24px; /* 아이콘 폰트 크기 설정 */
+    color: #0d4225; /* 진한 초록색 */
+    transition: opacity 0.3s ease; /* 아이콘의 투명도 전환 효과 추가 */
+}
+
+/* 사이드바 버튼 */
+.sidebar-button {
+    background: #ffffff; /* 배경 색상 흰색 */
+    border: 1px solid #ccc; /* 테두리 색상 회색 */
+    border-radius: 8px; /* 모서리를 둥글게 설정 */
+    padding: 10px; /* 패딩 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    margin: 5px 0; /* 상하 여백 설정 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+}
+
+/* 사이드바 내용 */
+.sidebar-content {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 내용 세로 방향 정렬 */
+    padding: 10px; /* 내용에 패딩 설정 */
+    opacity: 0; /* 기본적으로 내용 숨김 */
+    visibility: hidden; /* 내용이 숨겨지도록 설정 */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* 내용의 투명도와 가시성 전환 애니메이션 효과 */
+}
+
+/* 닫기 버튼 */
+.close-button {
+    background: none; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    font-size: 18px; /* 폰트 크기 설정 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 5px; /* 상단에서 10px 위치 */
+    left: 7px; /* 왼쪽에서 10px 위치 */
+    margin-bottom: 10px; /* 하단 여백 설정 */
+}
+
+/* 닫기 버튼 */
+.sidebar-content .material-symbols-outlined {
+    background: none; /* 배경 없음 */
+    border: none; /* 테두리 없음 */
+    font-size: 25px; /* 폰트 크기 설정 */
+    cursor: pointer; /* 마우스 커서 포인터로 변경 */
+    position: absolute; /* 절대 위치 설정 */
+    top: 10px; /* 상단에서 10px 위치 */
+    left: 10px; /* 왼쪽에서 10px 위치 */
+    margin-bottom: 10px; /* 하단 여백 설정 */
+}
+
+/* 사이드바 아이콘 */
+.sidebar-icon {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 아이콘을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 아이콘을 수직 방향으로 중앙 정렬 */
+    font-size: 24px; /* 아이콘 폰트 크기 설정 */
+    color: #333; /* 아이콘 색상 설정 */
+    transition: opacity 0.3s ease; /* 아이콘의 투명도 전환 효과 추가 */
+}
+
+
+
+
+/* 연간 달력 보기 스타일 */
+.yearly-view {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+
+
+/* 연간 달력의 월별 달력 헤더 */
+.monthly-calendar-header {
+    font-weight: 600; /* 폰트 두께를 굵게 설정 */
+    margin-bottom: 10px; /* 하단 여백 설정 */
+}
+
+/* 연간 달력의 월별 달력 본문 */
+.monthly-calendar-body {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-wrap: wrap; /* 줄 바꿈 허용 */
+}
+
+/* 연간 달력의 월별 셀 스타일 */
+.monthly-calendar-cell {
+    width: 14%; /* 셀의 너비를 전체의 14%로 설정 */
+    height: 40px; /* 셀의 높이를 40px로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 셀 내의 내용을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 셀 내의 내용을 수직 방향으로 중앙 정렬 */
+    border-radius: 5px; /* 셀의 모서리를 둥글게 설정 */
+    margin: 1px; /* 셀 사이의 여백 설정 */
+    background-color: #ffffff; /* 베이지 배경색 */
+}
+
+/* 년도와 월 표시 텍스트 스타일 */
+.month-year {
+    font-size: 1.2em; /* 폰트 크기 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태를 나타냄 */
+}
+
+/* 일반 열 스타일 */
+.col {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 열 내의 내용을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 열 내의 내용을 수직 방향으로 중앙 정렬 */
+    padding: 5px; /* 열 내의 내용에 패딩 설정 */
+    width: 14.2%; /* 열의 너비를 전체의 14.2%로 설정 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비와 높이를 계산 */
+}
+
+/* 셀 기본 스타일 */
+.cell {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 셀 내의 내용을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 셀 내의 내용을 수직 방향으로 중앙 정렬 */
+    padding: 5px; /* 셀 내의 내용에 패딩 설정 */
+    height: 50px; /* 셀의 높이를 50px로 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태를 나타냄 */
+}
+
+/* 비활성화된 셀 스타일 */
+.cell.disabled {
+    background-color: #f0f0f0; /* 비활성화된 셀의 배경 색상 설정 */
+    cursor: not-allowed; /* 클릭할 수 없는 상태를 나타내는 커서 설정 */
+}
+
+/* 선택된 셀 스타일 */
+.cell.selected {
+    border: 2px solid #0d4225; /* 진한 초록색 */
+}
+
+/* 유효한 셀 스타일 */
+.cell.valid {
+    background-color: #FFFBE6; /* 베이지 배경색 */
+}
+
+/* 일반 텍스트 스타일 */
+.text {
+    font-size: 1em; /* 폰트 크기 설정 */
+}
+
+/* 유효하지 않은 텍스트 스타일 */
+.not-valid {
+    color: #ccc; /* 유효하지 않은 텍스트의 색상 설정 */
+}
+
+/* 연간 뷰 스타일 */
+.year-view {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 내용의 수평 방향으로 중앙 정렬 */
+}
+
+/* 연간 뷰 헤더 스타일 */
+.year-header {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    align-items: center; /* 헤더 내의 요소들을 수직 방향으로 중앙 정렬 */
+    margin-bottom: 20px; /* 하단 여백 설정 */
+}
+
+/* 연간 뷰에서 년도 표시 텍스트 스타일 */
+.year-display {
+    font-size: 1.5em; /* 폰트 크기 설정 */
+    margin: 0 20px; /* 좌우 여백 설정 */
+}
+
+/* 월별 박스 컨테이너 */
+.months-container {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-wrap: wrap; /* 줄 바꿈 허용 */
+    justify-content: center; /* 월별 박스를 수평 방향으로 중앙 정렬 */
+}
+
+/* 월별 박스 스타일 */
+.month-box {
+    width: 200px; /* 월별 박스의 너비 설정 */
+    margin: 10px; /* 월별 박스 사이의 여백 설정 */
+    padding: 10px; /* 월별 박스 내의 패딩 설정 */
+    background-color: #ffffff; /* 베이지 배경색 */
+    border: 1px solid #ccc; /* 테두리 색상 회색 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 박스에 그림자 추가 */
+    border-radius: 8px; /* 박스 모서리를 둥글게 설정 */
+}
+
+/* 월별 박스의 제목 스타일 */
+.month-title {
+    text-align: center; /* 제목 중앙 정렬 */
+    margin-bottom: 10px; /* 하단 여백 설정 */
+    font-size: 1.2em; /* 폰트 크기 설정 */
+}
+
+/* 미니 달력 스타일 */
+.monthly-calendar {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+}
+
+/* 미니 달력의 행 스타일 */
+.monthly-calendar .row {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+}
+
+/* 미니 달력의 셀 스타일 */
+.monthly-calendar-cell {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 셀 내의 내용을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 셀 내의 내용을 수직 방향으로 중앙 정렬 */
+    width: 25px; /* 셀의 너비 설정 */
+    height: 25px; /* 셀의 높이 설정 */
+    margin: 2px; /* 셀 사이의 여백 설정 */
+}
+
+/* 월별 박스 텍스트 스타일 */
+.month-text {
+    font-size: 1.2em;
+    color: #0d4225; /* 진한 초록색 */
+}
+
+
+/* 연간 달력의 월별 셀 원형 스타일 */
+.day-circle {
+    width: 20px; /* 원형의 너비 설정 */
+    height: 20px; /* 원형의 높이 설정 */
+    border-radius: 50%; /* 원형 모서리 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 원형 내의 내용을 수평 방향으로 중앙 정렬 */
+    align-items: center; /* 원형 내의 내용을 수직 방향으로 중앙 정렬 */
+    font-size: 0.8em; /* 폰트 크기 설정 */
+}
+
+/* 색상 변경 버튼 스타일 */
+.color-option {
+    width: 30px; /* 색상 옵션의 너비 설정 */
+    height: 30px; /* 색상 옵션의 높이 설정 */
+    margin: 0 5px; /* 좌우 여백 설정 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능한 상태를 나타냄 */
+    border-radius: 50%; /* 색상 옵션을 원형으로 설정 */
+}
+
+/* 연도 입력 필드 컨테이너 */
+.year-input-container {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+/* 연도 입력 필드 스타일 */
+.year-input {
+    width: 80px;
+    text-align: center;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-right: 10px;
+}
+
+/* 연도 입력 버튼 스타일 */
+.year-input-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.year-input-button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.today {
+    border: 3px solid #639669; /* 노란색 테두리 */
+    background-color: transparent; /* 투명한 배경 */
+    color: #0e8b14; /* 텍스트 색상 */
+    border-radius: 50%; /* 원형으로 만들기 */
+    width: 30px; /* 원의 크기 조정 */
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto; /* 가운데 정렬 */
+    box-sizing: border-box; /* 테두리를 포함한 크기 계산 */
+}
+
+/* .today가 .col cell의 자식 요소로 사용될 경우를 고려한 스타일 */
+.col.cell .today {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 0;
+}
